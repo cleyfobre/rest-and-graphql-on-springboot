@@ -1,0 +1,57 @@
+server:
+  port: 8080
+  compression:
+    enabled: true
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+graphql:
+  servlet:
+    mapping: /graphql
+    cors-enabled: true
+    max-query-depth: 100
+    exception-handlers-enabled: true
+  tools:
+    schema-location-pattern: "**/*.graphqls"
+spring:
+#  graphql:
+#    path: /graphql
+#  graphiql:
+#    path: /graphiql
+#    enabled: false
+#  schema:
+#    locations: "**/**"
+#    schema:
+#      file-extensions: .graphqls,.gqls
+#      introspection:
+#        enabled: true
+#      printer:
+#        enabled: false
+#  websocket:
+#    connection-init-timeout: 60s
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jpabegin?serverTimezone=Asia/Seoul
+    username: root
+    password: root
+  jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google: # /oauth2/authorization/google
+            client-id: 799406859248-l6ed5jg73ltm9o6cndhkt3vem7dr1d7e.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - email
+              - profile
