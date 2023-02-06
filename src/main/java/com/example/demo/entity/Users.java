@@ -25,6 +25,15 @@ public class Users {
     @Column(name = "provider_id")
     private String providerId;
 
+    @Builder
+    public Users(String name, String password, String role, String provider, String providerId) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
+        this.provider = provider;
+        this.providerId = providerId;
+    }
+
     public static Users from(UsersInput input) {
         return new Users(input.getName(), input.getPassword(), input.getRole());
     }

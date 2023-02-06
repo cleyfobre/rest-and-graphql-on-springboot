@@ -3,26 +3,24 @@ package com.example.demo.controller;
 import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.entity.Users;
 import com.example.demo.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
+@AllArgsConstructor
 @Controller
-@RequiredArgsConstructor
-public class ViewController {
+@Slf4j
+public class AuthController {
 
-    @Autowired
     private final UserService userService;
-
-    @Autowired
-    private final BCryptPasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public String index() {
@@ -37,7 +35,8 @@ public class ViewController {
 
     @Secured("ROLE_USER")
     @GetMapping("/mypage")
-    public String mypage() {
+    public String mypage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        log.info(principalDetails.getUsers().toString());
         return "mypage";
     }
 
@@ -50,7 +49,7 @@ public class ViewController {
     @GetMapping("/test")
     public String test(Authentication authentication) {
         Users users = ((PrincipalDetails) authentication.getPrincipal()).getUsers();
-        System.out.println("users: " + users);
+        log.info("users: " + users);
         return "index";
     }
 
@@ -66,9 +65,25 @@ public class ViewController {
 
     @PostMapping("/signup.do")
     public String signup(Users users) {
-        users.setPassword(passwordEncoder.encode(users.getPassword()));
         userService.createUsers(users);
         return "redirect:/login";
     }
 
+    @GetMapping("/login/test")
+    public String loginTest(Authentication authentication,
+                            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        PrincipalDetails principal = (PrincipalDetails) authentication.getPrincipal();
+        log.info("principal: " + principal.getUsers());
+        log.info("principal: " + principalDetails.getUsers());
+        return "index";
+    }
+
+    @GetMapping("/login/oauth/test")
+    public String loginOAuthTest(Authentication authentication,
+                                 @AuthenticationPrincipal OAuth2User oAuth2User) {
+        OAuth2User principal = (OAuth2User) authentication.getPrincipal();
+        log.info("principal: " + principal.getAttributes());
+        log.info("principal: " + oAuth2User.getAttributes());
+        return "index";
+    }
 }

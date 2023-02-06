@@ -2,20 +2,20 @@ package com.example.demo.service;
 
 import com.example.demo.entity.Users;
 import com.example.demo.repository.UserRepository;
-import graphql.kickstart.tools.GraphQLMutationResolver;
-import graphql.kickstart.tools.GraphQLQueryResolver;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Service
 @Transactional
 public class UserService {
 
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
     public List<Users> getUsers(String name) {
         if (name.isBlank()) {
@@ -30,6 +30,7 @@ public class UserService {
     }
 
     public Users createUsers(Users users) {
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
         return userRepository.save(users);
     }
 
