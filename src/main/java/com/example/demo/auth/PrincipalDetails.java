@@ -73,20 +73,20 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
         return OAuth2User.super.getAttribute(name);
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
-
-    @Override
-    public Map<String, Object> getAttributes() {
-        return null;
-    }
+//    @Override
+//    protected Object clone() throws CloneNotSupportedException {
+//        return super.clone();
+//    }
+//
+//    @Override
+//    protected void finalize() throws Throwable {
+//        super.finalize();
+//    }
+//
+//    @Override
+//    public Map<String, Object> getAttributes() {
+//        return null;
+//    }
 
     @Override
     public String getName() {

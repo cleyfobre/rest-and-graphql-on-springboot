@@ -4,7 +4,6 @@ import com.example.demo.auth.PrincipalDetails;
 import com.example.demo.entity.Users;
 import com.example.demo.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @AllArgsConstructor
 @Controller
 @Slf4j
-public class AuthController {
+public class AuthV1Controller {
 
     private final UserService userService;
 
