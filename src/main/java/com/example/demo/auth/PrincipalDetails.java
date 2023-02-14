@@ -31,11 +31,14 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        System.out.println();
         Collection<GrantedAuthority> collection = new ArrayList<>();
         log.info("In PrincipalDetails: " + users);
         collection.add((GrantedAuthority) () -> users.getRole());
         return collection;
     }
+
+
 
     @Override
     public String getPassword() {

@@ -32,11 +32,13 @@ spring:
 #        enabled: false
 #  websocket:
 #    connection-init-timeout: 60s
+  profiles:
+    active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jpabegin?serverTimezone=Asia/Seoul
-    username: root
-    password: root
+    url: jdbc:mysql://192.168.0.10:3306/jpabegin?serverTimezone=Asia/Seoul
+    username: jpauser
+    password: jpapass
   jpa:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
