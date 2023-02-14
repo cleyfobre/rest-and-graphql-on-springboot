@@ -1,0 +1,22 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  build:
+    commands:
+      - echo Build started!
+      - ./gradlew build -xtest
+  post_build:
+    finally:
+      - rm -f  /root/.gradle/caches/modules-2/modules-2.lock
+      - rm -fr /root/.gradle/caches/*/plugin-resolution/
+artifacts:
+  files:
+    - 'demo-0.0.1-SNAPSHOT.jar'
+  base-directory: 'build/libs'
+  discard-paths: yes # 파일명 기준으로만 업로드
+cache:
+  paths:
+    - '/root/.m2/**/*'
