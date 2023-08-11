@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="INFO_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%highlight([%.-1level]) %green(%d{MM-dd HH:mm:ss}) %white([%10.10t]) %replace(%magenta([%22F:%-4L])){'.java',''} - %cyan(%msg) %n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="INFO_CONSOLE" />
+    </root>
+
+    <logger name="java.sql" level="ERROR" additivity="false">
+        <appender-ref ref="INFO_CONSOLE" />
+    </logger>
+    <logger name="jdbc" level="OFF" additivity="false"/>
+    <logger name="jdbc.sqlonly" level="OFF" additivity="false"/>
+    <logger name="jdbc.sqltiming" level="INFO" additivity="false">
+        <appender-ref ref="INFO_CONSOLE" />
+    </logger>
+    <logger name="jdbc.audit" level="OFF" additivity="false"/>
+    <logger name="jdbc.resultset" level="OFF" additivity="false"/>
+    <logger name="jdbc.resultsettable" level="OFF" additivity="false"/>
+    <logger name="jdbc.connection" level="OFF" additivity="false"/>
+    <logger name="org.springframework.web" level="FATAL" additivity="false">
+        <appender-ref ref="INFO_CONSOLE" />
+    </logger>
+    <logger name="org.springframework.security" level="OFF" additivity="false"/>
+    <logger name="com.zaxxer.hikari.HikariConfig" level="ERROR" additivity="false">
+        <appender-ref ref="INFO_CONSOLE" />
+    </logger>
+    <logger name="org.hibernate" level="ERROR" additivity="false">
+        <appender-ref ref="INFO_CONSOLE" />
+    </logger>
+
+</configuration>

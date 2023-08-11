@@ -1,0 +1,11 @@
+type Query {
+  getTarget(id: Int): Target
+}
+
+type Target {
+  id: Int
+  lat: Float
+  lng: Float
+  category: String
+  dupKey: Int
+}
